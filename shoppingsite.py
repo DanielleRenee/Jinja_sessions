@@ -63,6 +63,13 @@ def show_shopping_cart():
 
     # TODO: Display the contents of the shopping cart.
 
+    cart_dict = session['cart']
+    melon_objects = []
+    total_cost = 0
+
+    for melons in cart_dict:
+        
+
     # The logic here will be something like:
     #
     # - get the cart dictionary from the session
@@ -106,12 +113,21 @@ def add_to_cart(melon_id):
     if "cart" not in session:
         session["cart"] = {}
 
-    print session
+    # melon_total = session['cart'][melon_id]
 
-    #     if "cart" in session:
-    #     session["cart"] += 1
+    # if melon_total:
+    #     melon_total += 1
     # else:
-       
+    #     melon_total = 1
+    melon = melons.get_by_id(melon_id)
+
+    if melon_id in session["cart"]:
+        session["cart"][melon_id] += 1
+    else:
+        session["cart"][melon_id] = 1
+
+    print session
+    flash("Your {} was successfully added to your cart!".format(melon.common_name.upper()))
 
     return redirect("/cart")
 
